@@ -3,14 +3,21 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
-# Copy all files
+# Copy app files
 COPY . .
 
-# Install system dependencies
-RUN apt-get update && xargs -a apt.txt apt-get install -y && apt-get clean
+# Install system packages directly
+RUN apt-get update && \
+    apt-get install -y ffmpeg libsm6 libxext6 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install Python packages
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Run app with Gunicorn
+# Expose correct port
+ENV PORT=10000
+
+# Start the app
 CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:10000"]
+
