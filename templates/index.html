@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoSub.ai</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='f1.ico') }}">
+    <style>
+        .main {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>AUTOSUB.AI</h1>
+    
+    <div class="container">
+        <form action="/generate" method="post" enctype="multipart/form-data" onsubmit="showSpinner()" >
+        <p>Choose the file you want subtitles:</p>
+        <input type="file" name="file" placeholder="Enter the file">
+        <p id="common">Or</p>
+        <p>Enter the Youtube link you want subtitles:</p>
+        <input type="text" name="youtube" placeholder="Enter the link"><br>
+        <p>Select the language you want</p>
+        <select name="language" required>
+            <option value="">Auto Detect</option>
+            <option value="en">English</option>
+            <option value="ta">Tamil</option>
+            <option value="hi">Hindi</option>
+        </select>
+        <p>Select model size:</p>
+        <select name="model" required>
+            <option value="base">Base[Faster/Less Accurate]</option>
+            <option value="small">Small[Slower/Accurate]</option>
+            <option value="medium">Medium[More Slower/More Accurate]</option>
+        </select><br>
+        <button id="btn" type="submit">
+            <span>Generate</span>
+            <div id="spinner"></div>
+        </button>
+    </form>
+     {% if subtitle %}
+    <div class="main">
+       
+        <h2>Generated Subtitle</h2>
+        <textarea cols="100" rows="15">{{ subtitle }}</textarea>
+
+        {% if subtitle_file %}
+            <br><br>
+            <a href="/download/{{ subtitle_file }}">
+                <button>⬇️ Download Subtitle</button>
+            </a>
+            <a href="/feed">
+                <button>Feedback</button>
+            </a>
+        {% endif %}
+    </div>
+    {%endif %}
+    </div>
+    <script>
+        function showSpinner(){
+            const btn=document.getElementById('btn');
+            const spin=document.getElementById('spinner');
+            btn.disabled=true;
+            spin.style.display='inline-block';
+        }
+    </script>
+</body>
+</html>
