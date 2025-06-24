@@ -18,7 +18,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose correct port
 ENV PORT=10000
 
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:$PORT"]
+CMD gunicorn app:app --bind 0.0.0.0:$PORT
+
 
 
 
