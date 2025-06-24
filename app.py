@@ -7,6 +7,9 @@ from datetime import datetime
 from flask import send_from_directory
 app=Flask(__name__)
 app.secret_key = "srinithi@8287"
+# Ensure required folders exist
+os.makedirs("uploads", exist_ok=True)
+os.makedirs("subtitles", exist_ok=True)
 models={}
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  
 @app.route('/')
