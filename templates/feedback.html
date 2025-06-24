@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='f.ico') }}">
+</head>
+<body>
+    <style>
+        body{
+            background-color: rgb(45, 76, 99);
+            margin: 70px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form{
+            background-color: white;
+            width: 300px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        form h2{
+            text-align: center;
+        }
+        button{
+            background-color: rgb(140, 172, 219);
+            margin: 10px;
+            margin-left: 100px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+    <form action="/feedback" method="POST">
+        <h2>Feedback</h2>
+        <textarea name="feed" cols="30" rows="10" placeholder="Enter your feedback here...." required></textarea><br>
+        <button type="submit">submit</button>
+  
+    </form>
+</body>
+</html>
