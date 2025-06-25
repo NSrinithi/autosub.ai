@@ -15,11 +15,11 @@ RUN apt-get update && \
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose correct port
-ENV PORT=10000
+# 🔧 Create upload/output folders
+RUN mkdir -p /app/uploads /app/subtitles && chmod -R 777 /app/uploads /app/subtitles
 
+# Expose correct port (optional)
+# ENV PORT=10000  ← you can remove this if using $PORT from Render
+
+# Start the app with dynamic port from Render
 CMD gunicorn app:app --bind 0.0.0.0:$PORT
-
-
-
-
